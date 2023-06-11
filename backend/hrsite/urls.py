@@ -8,6 +8,7 @@ app_name = 'hrsite'
 
 urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
+    path('internships/', include('internships.urls', namespace='internships')),
 ]
 
 if settings.DEBUG:
