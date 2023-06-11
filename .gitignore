@@ -1,5 +1,5 @@
 # Project structure excludes
-./backend/hrsite/static/css/main.css
+backend/hrsite/static/css/main.css
 
 
 # Byte-compiled / optimized / DLL files
