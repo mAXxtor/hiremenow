@@ -16,6 +16,28 @@
   <h1 class="text-4xl text-slate-400">
     Hello world!
   </h1>
+  {% for internship in internships %}
+
+    <div style="border-bottom: 1px solid;">
+      name: {{ internship.name }} <br> #1
+      short_description: {{ internship.short_description }} <br>
+      start_date: {{ internship.start_date }} <br>
+      end_date: {{ internship.end_date }} <br>
+      is_permanent: {{ internship.is_permanent }} <br>
+      fields of internship:
+      <ul>
+        {% for field in internship.fields.all %}
+            <li>{{ field.name }}</li>
+        {% endfor %}
+      </ul>
+      field.name: {{ internship.fields.name }} <br>
+      created_at: {{ internship.created_at }} <br>
+      updated_at: {{ internship.updated_at }} <br>
+      published_at: {{ internship.published_at }} <br>
+      visibility: {{ internship.visibility }} <br>
+
+    </div>
+  {% endfor %}
 
 </body>
 </html>

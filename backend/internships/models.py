@@ -3,8 +3,16 @@ from django.db import models
 
 
 class InternshipField(models.Model):
+    """
+    Направление стажировки.
+    Attributes:
+        name(str):
+            Название направления стажировки (до 128 символов)
+        slug(str):
+            Slug направления стажировки (до 200 символов).
+    """
     name = models.CharField(
-        'Направление стажировки',
+        'Название направления стажировки',
         max_length=128,
         blank=False,
         help_text='Введите наименование стажировки',
@@ -38,13 +46,18 @@ class Internship(models.Model):
         end_date(date):
             Дата окончания подачи заявки на стажировку.
         is_permanent(bool):
-            Чекбокс “постоянный набор”.
-        direction(multiple_choice):
+            Открыт постоянный набор на стажировку.
+        fields(int):
             Направление стажировки.
-        pub_date(date):
-            Дата публикации.
-Дописать всю хуйню
-
+            Связь ManyToMany с моделью InternshipField.
+        created_at(date):
+            Дата создания стажировки.
+        updated_at(date):
+            Дата обновления стажировки.
+        published_at(date):
+            Дата публикации стажировки.
+        visibility(bool):
+            Публикация стажировки.
     """
     name = models.CharField(
         'Название стажировки',
@@ -95,8 +108,6 @@ class Internship(models.Model):
     def __str__(self):
         return self.name[:15]
 
-
-# правильный термин - Internship Fields вместо DirectionOfInternship
 
 # class InternshipsFields(models.Model):
 #     """ Связующая модель Direction и Internship.

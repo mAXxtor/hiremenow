@@ -1,9 +1,18 @@
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic.base import TemplateView
+
+from .models import Internship, InternshipField
 
 
 class IndexView(TemplateView):
     template_name = 'internships/index.html'
 
+
+def index(request):
+    internships = Internship.objects.prefetch_related('fields').all()
+    # internships = Internship.objects.all()
+    return render(request, 'internships/index.html',
+                  context={'internships': internships})
 
 # from django.contrib.auth.decorators import login_required
 # from django.shortcuts import get_object_or_404, redirect, render
