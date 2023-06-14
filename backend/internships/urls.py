@@ -8,7 +8,8 @@ app_name = 'internships'
 
 urlpatterns = [
     path('', views.InternshipListView.as_view(), name='index'),
-    path('<slug:slug>/', views.FieldListView.as_view(), name='field_list'),
+    path('<slug:slug>/', views.InternshipFieldListView.as_view(),
+         name='internship_field_list'),
 ]
 
 if settings.DEBUG:

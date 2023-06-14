@@ -16,7 +16,7 @@ class InternshipListView(ListView):
             visibility=True)
 
 
-class FieldListView(InternshipListView):
+class InternshipFieldListView(InternshipListView):
     """ Список опубликованных стажировок по направлению. """
     allow_empty = False
 
