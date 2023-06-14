@@ -1,26 +1,25 @@
-from django.shortcuts import get_object_or_404, redirect, render
-from django.views.generic.base import TemplateView
+from typing import Any
+from django.db.models.query import QuerySet
+from django.views.generic.list import ListView
 
-from .models import Internship, InternshipField
+from .models import Internship
 
 
-class IndexView(TemplateView):
+class InternshipListView(ListView):
+    """ Список опубликованных стажеровок. """
+    model = Internship
     template_name = 'internships/index.html'
+    context_object_name = 'internships'
+
+    def get_queryset(self) -> QuerySet[Any]:
+        return Internship.objects.prefetch_related('fields').filter(
+            visibility=True)
 
 
-def index(request):
-    internships = Internship.objects.prefetch_related('fields').all()
-    return render(request, 'internships/index.html',
-                  context={'internships': internships})
+class FieldListView(InternshipListView):
+    """ Список опубликованных стажеровок по направлению. """
+    allow_empty = False
 
-
-class DesignView(TemplateView):
-    template_name = 'internships/index.html'
-
-
-class DevView(TemplateView):
-    template_name = 'internships/index.html'
-
-
-class ManageView(TemplateView):
-    template_name = 'internships/index.html'
+    def get_queryset(self) -> QuerySet[Any]:
+        return Internship.objects.prefetch_related('fields').filter(
+            fields__slug=self.kwargs['slug'], visibility=True)
