@@ -6,7 +6,7 @@ from .models import Internship
 
 
 class InternshipListView(ListView):
-    """ Список опубликованных стажеровок. """
+    """ Список опубликованных стажировок. """
     model = Internship
     template_name = 'internships/index.html'
     context_object_name = 'internships'
@@ -17,7 +17,7 @@ class InternshipListView(ListView):
 
 
 class FieldListView(InternshipListView):
-    """ Список опубликованных стажеровок по направлению. """
+    """ Список опубликованных стажировок по направлению. """
     allow_empty = False
 
     def get_queryset(self) -> QuerySet[Any]:
