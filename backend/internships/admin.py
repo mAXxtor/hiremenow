@@ -43,8 +43,8 @@ class AreaAdmin(admin.ModelAdmin):
 
 @admin.register(Company)
 class CompanyAdmin(admin.ModelAdmin):
-    """ Управление cферой деятельности организации """
-    fields = ('name', 'name_eng', 'slug','short_description', 'url_site',
+    """ Управление организациями """
+    fields = ('name', 'name_eng', 'slug', 'short_description', 'url_site',
               'url_vacancies', 'url_internships', 'url_tg_company',
               'url_tg_vacancies', 'url_tg_internships', 'logo', 'size',
               'areas')

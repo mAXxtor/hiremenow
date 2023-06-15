@@ -105,7 +105,7 @@ class Company(models.Model):
                 - крупнейшие компании (от 5001 человек в штате) `giant`
         areas(int):
             Сфера деятельности организации.
-            Связь ManyToMany с моделью Area. 
+            Связь ManyToMany с моделью Area.
         #TODO Это точно относится к компании? Стоит сделать отдельную модель?
         open_graph(int):
             og:title `og_title` (необязательное)
@@ -189,7 +189,7 @@ class Company(models.Model):
     size = models.CharField(
         'Размер организации',
         max_length=10,
-        #TODO Разобраться как можно None
+        # TODO Разобраться как можно None
         default=None,
         choices=SIZES,
     )
@@ -262,7 +262,7 @@ class Internship(models.Model):
         to=InternshipField,
         related_name='internships',
         verbose_name='Направление стажировки',
-        #TODO Убрать если не бужем использовать связанную таблицу
+        # TODO Убрать если не бужем использовать связанную таблицу
         # through='InternshipsFields',
     )
     company = models.ForeignKey(
@@ -297,7 +297,7 @@ class Internship(models.Model):
         return self.name[:15]
 
 
-#TODO Убрать если оставим без связующей модели
+# TODO Убрать если оставим без связующей модели
 # class InternshipsFields(models.Model):
 #     """ Связующая модель Direction и Internship.
 
