@@ -10,6 +10,7 @@ urlpatterns = [
     path('', views.InternshipListView.as_view(), name='index'),
     path('<slug:slug>/', views.InternshipFieldListView.as_view(),
          name='internship_field_list'),
+    path()
 ]
 
 if settings.DEBUG:
