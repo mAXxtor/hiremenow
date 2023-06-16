@@ -8,7 +8,7 @@ urlpatterns = [
     path('__reload__/', include('django_browser_reload.urls')),
     path("__debug__/", include("debug_toolbar.urls")),
     path('', include('hrsite.urls', namespace='hrsite')),
-    # path('internships/', include('internships.urls', namespace='internships')),
+    path('internships/', include('internships.urls', namespace='internships')),
 ]
 
 if settings.DEBUG:
