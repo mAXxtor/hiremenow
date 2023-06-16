@@ -12,18 +12,18 @@ class InternshipField(models.Model):
             Slug направления стажировки. До 200 символов.
     """
     name = models.CharField(
-        'Название направления стажировки.',
+        'Название направления стажировки',
         max_length=128,
         blank=False,
         db_index=True,
-        help_text='Введите наименование стажировки.',
+        help_text='Введите наименование направления стажировки',
     )
     slug = models.SlugField(
-        'Slug направления стажировки.',
+        'Slug направления стажировки',
         max_length=settings.MAX_LEN_MODEL_FIELD,
         unique=True,
         db_index=True,
-        help_text='Введите Slug стажировки.',
+        help_text='Введите Slug направления стажировки',
     )
 
     class Meta:
@@ -44,18 +44,18 @@ class Area(models.Model):
             Slug сферы деятельности организации. До 200 символов.
     """
     name = models.CharField(
-        'Название сферы деятельности.',
+        'Название сферы деятельности',
         max_length=128,
         blank=False,
         db_index=True,
-        help_text='Введите название сферы деятельности.',
+        help_text='Введите название сферы деятельности',
     )
     slug = models.SlugField(
-        'Slug сферы деятельности.',
+        'Slug сферы деятельности',
         max_length=settings.MAX_LEN_MODEL_FIELD,
         unique=True,
         db_index=True,
-        help_text='Введите Slug сферы деятельности.',
+        help_text='Введите Slug сферы деятельности',
     )
 
     class Meta:
@@ -132,71 +132,75 @@ class Company(models.Model):
         'Название организации на Русском языке',
         max_length=128,
         help_text='Введите название организации на Русском языке. '
-                  'Не более 128 символов.',
+                  'Не более 128 символов',
     )
     name_eng = models.CharField(
         'Название организации на Английском языке',
         max_length=128,
         help_text='Введите название организации на Английском языке. '
-                  'Не более 128 символов.',
+                  'Не более 128 символов',
     )
     short_description = models.TextField(
         'Короткое описание',
         max_length=256,
         help_text='Введите короткое описание организации. '
-                  'Не более 256 символов.',
+                  'Не более 256 символов',
     )
     url_site = models.URLField(
         'Ссылка на корпоративный сайт',
-        help_text='Введите ссылку на корпоративный сайт.'
+        help_text='Введите ссылку на корпоративный сайт'
     )
     url_vacancies = models.URLField(
         'Ссылка на вакансии',
         blank=True,
-        help_text='Введите ссылку на вакансии.'
+        help_text='Введите ссылку на вакансии'
     )
     url_internships = models.URLField(
         'Ссылка на стажировки',
         blank=True,
-        help_text='Введите ссылку на стажировки.'
+        help_text='Введите ссылку на стажировки'
     )
     url_tg_company = models.URLField(
         'Ссылка на Telegram организации',
         blank=True,
-        help_text='Введите ссылку на Telegram организации.'
+        help_text='Введите ссылку на Telegram организации'
     )
     url_tg_vacancies = models.URLField(
         'Ссылка на Telegram вакансий организации',
         blank=True,
-        help_text='Введите ссылку на Telegram вакансий организации.'
+        help_text='Введите ссылку на Telegram вакансий организации'
     )
     url_tg_internships = models.URLField(
         'Ссылка на Telegram всех стажировок компании',
         blank=True,
-        help_text='Введите ссылку на Telegram всех стажировок компании.'
+        help_text='Введите ссылку на Telegram всех стажировок компании'
     )
     logo = models.FileField(
         'Логотип организации',
         upload_to='company_logo/',
-        help_text='Выберите файл для загрузки логотипа организации.',
+        blank=True,
+        help_text='Выберите файл для загрузки логотипа организации',
     )
     slug = models.SlugField(
         'Slug организации',
         max_length=settings.MAX_LEN_MODEL_FIELD,
         db_index=True,
         unique=True,
+        help_text='Введите slug организации',
     )
     size = models.CharField(
         'Размер организации',
         max_length=10,
         # TODO Разобраться как можно None
-        default=None,
+        blank=True,
         choices=SIZES,
+        help_text='Выберите размер организации',
     )
     areas = models.ManyToManyField(
         to=Area,
         related_name='companies',
         verbose_name='Сфера деятельности организации',
+        help_text='Выберите сферу деятельности организации',
     )
 
     class Meta:
@@ -238,13 +242,13 @@ class Internship(models.Model):
             Публикация стажировки.
     """
     name = models.CharField(
-        'Название стажировки.',
+        'Название стажировки',
         max_length=128,
         db_index=True,
         help_text='Введите наименование стажировки. Не более 128 символов.',
     )
     short_description = models.TextField(
-        'Короткое описание.',
+        'Короткое описание',
         max_length=256,
         help_text='Введите короткое описание стажировки. '
                   'Не более 256 символов.',
@@ -257,6 +261,7 @@ class Internship(models.Model):
     )
     is_permanent = models.BooleanField(
         'Набор на стажировку ведётся постоянно',
+        default=False,
     )
     fields = models.ManyToManyField(
         to=InternshipField,
@@ -283,7 +288,10 @@ class Internship(models.Model):
         'Дата публикации стажировки',
         auto_now=True,
     )
-    visibility = models.BooleanField('Стажировка опубликована')
+    visibility = models.BooleanField(
+        'Стажировка опубликована',
+        default=False,
+    )
 
     class Meta:
         ordering = ('-updated_at',)

@@ -19,6 +19,7 @@ class InternshipAdmin(admin.ModelAdmin):
     list_display = ('name', 'fields', 'is_permanent', 'visibility')
     list_editable = ('is_permanent', 'visibility')
     readonly_fields = ('created_at', 'updated_at', 'published_at')
+    # TODO Донастроить и убрать лишнее
     # fieldsets = ('get_internships_fields',)
     # inlines = (InternshipFieldInline,)
 

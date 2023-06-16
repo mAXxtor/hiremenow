@@ -9,9 +9,9 @@ app_name = 'internships'
 urlpatterns = [
     path('', views.InternshipListView.as_view(), name='index'),
     path('<slug:slug>/', views.InternshipFieldListView.as_view(),
-         name='internship_field_list'),
-    path()
+         name='internships_field_list'),
 ]
+# TODO Добавить роутинг для компании
 
 if settings.DEBUG:
     urlpatterns += static(
