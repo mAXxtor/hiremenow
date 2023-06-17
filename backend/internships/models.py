@@ -245,36 +245,39 @@ class Internship(models.Model):
         'Название стажировки',
         max_length=128,
         db_index=True,
-        help_text='Введите наименование стажировки. Не более 128 символов.',
+        help_text='Введите наименование стажировки. Не более 128 символов',
     )
     short_description = models.TextField(
         'Короткое описание',
         max_length=256,
         help_text='Введите короткое описание стажировки. '
-                  'Не более 256 символов.',
+                  'Не более 256 символов',
     )
     start_date = models.DateField(
-        'Старт подачи заявок',
+        'Начало подачи заявок',
+        help_text='Введите дату начала подачи заявок',
     )
     end_date = models.DateField(
-        'Окончание приёма',
+        'Окончание приёма заявок',
+        help_text='Введите дату окончания подачи заявок',
     )
     is_permanent = models.BooleanField(
         'Набор на стажировку ведётся постоянно',
         default=False,
+        help_text='Выберите для постоянного набора на стажировку',
     )
     fields = models.ManyToManyField(
         to=InternshipField,
         related_name='internships',
         verbose_name='Направление стажировки',
-        # TODO Убрать если не бужем использовать связанную таблицу
-        # through='InternshipsFields',
+        help_text='Выберите направление стажировки'
     )
     company = models.ForeignKey(
         to=Company,
         on_delete=models.CASCADE,
         related_name='internships',
         verbose_name='Организация',
+        help_text='Выберите организацию',
     )
     created_at = models.DateTimeField(
         'Дата создания стажировки',
@@ -291,6 +294,7 @@ class Internship(models.Model):
     visibility = models.BooleanField(
         'Стажировка опубликована',
         default=False,
+        help_text='Выберите для публикации стажировки',
     )
 
     class Meta:

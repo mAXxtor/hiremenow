@@ -192,3 +192,78 @@ class CompanyModelTest(TestCase):
                 self.assertEqual(
                     self.company._meta.get_field(field).help_text,
                     expected_value)
+
+
+class InternshipModelTest(TestCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.internship_field = InternshipField.objects.create(
+            name='Тестовое направление стажировки 1',
+            slug='test_internship_field_slug_1',
+        )
+        cls.company = Company.objects.create(
+            name='Тестовая организация 1',
+            name_eng='test_company_1',
+            short_description='Тестовое короткое описание организации 1',
+            url_site='http://urlsite.test',
+            slug='test_company_slug_1',
+            size='INDIE',
+        )
+        cls.internship = Internship.objects.create(
+            name='Тестовая стажировка 1',
+            short_description='Тестовое короткое описание стажировки 1',
+            start_date='2023-01-01',
+            end_date='2023-07-01',
+            is_permanent='False',
+            company=cls.company,
+            visibility='True',
+        )
+        cls.internship.fields.add(cls.internship_field)
+
+    def test_internship_model_have_correct_object_names(self):
+        """Проверка корректной работы __str__ модели Internship."""
+        self.assertEqual(str(self.internship),
+                         self.internship.name[:15])
+
+    def test_internship_model_verbose_name(self):
+        """
+        verbose_name в полях модели Internship совпадает с ожидаемым.
+        """
+        field_verboses = {
+            'name': 'Название стажировки',
+            'short_description': 'Короткое описание',
+            'start_date': 'Начало подачи заявок',
+            'end_date': 'Окончание приёма заявок',
+            'is_permanent': 'Набор на стажировку ведётся постоянно',
+            'fields': 'Направление стажировки',
+            'company': 'Организация',
+            'created_at': 'Дата создания стажировки',
+            'updated_at': 'Дата обновления стажировки',
+            'published_at': 'Дата публикации стажировки',
+            'visibility': 'Стажировка опубликована',
+        }
+        for field, expected_value in field_verboses.items():
+            with self.subTest(field=field):
+                self.assertEqual(
+                    self.internship._meta.get_field(field).verbose_name,
+                    expected_value)
+
+    def test_internship_model_help_text(self):
+        """help_text в полях модели Internship совпадает с ожидаемым."""
+        field_help_texts = {
+            'name': 'Введите наименование стажировки. Не более 128 символов',
+            'short_description': 'Введите короткое описание стажировки. '
+                                 'Не более 256 символов',
+            'start_date': 'Введите дату начала подачи заявок',
+            'end_date': 'Введите дату окончания подачи заявок',
+            'is_permanent': 'Выберите для постоянного набора на стажировку',
+            'fields': 'Выберите направление стажировки',
+            'company': 'Выберите организацию',
+            'visibility': 'Выберите для публикации стажировки',
+        }
+        for field, expected_value in field_help_texts.items():
+            with self.subTest(field=field):
+                self.assertEqual(
+                    self.internship._meta.get_field(field).help_text,
+                    expected_value)
