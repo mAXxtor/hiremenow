@@ -35,7 +35,9 @@
       updated_at: {{ internship.updated_at }} <br>
       published_at: {{ internship.published_at }} <br>
       visibility: {{ internship.visibility }} <br>
-
+      {% if request.resolver_match.kwargs.slug %}
+        field_slug: {{ field.slug }} <br>
+      {% endif %}
     </div>
   {% endfor %}
 

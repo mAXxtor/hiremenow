@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.conf.urls.static import static
-from django.urls import include, path
+from django.urls import path
 
 from . import views
 
@@ -8,7 +8,6 @@ app_name = 'hrsite'
 
 urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
-    path('internships/', include('internships.urls', namespace='internships')),
 ]
 
 if settings.DEBUG:
